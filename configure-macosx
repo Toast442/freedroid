@@ -1,0 +1,3 @@
+#!/bin/sh
+
+CFLAGS="-D __MACOSX__ -arch ppc -arch i386" CXXFLAGS="-D __MACOSX__ -arch i386 -arch ppc"  LDFLAGS="-arch i386 -arch ppc" ./configure --disable-dependency-tracking --prefix="./FreeDroid.app/Contents/Resources/freedroid" --exec-prefix="./FreeDroid.app/Contents/MacOS" --bindir="./FreeDroid.app/Contents/MacOS/"
