@@ -18,10 +18,10 @@ SHELL = /bin/sh
 srcdir = .
 top_srcdir = ..
 
-prefix = ./FreeDroid.app/Contents/Resources/freedroid
-exec_prefix = ./FreeDroid.app/Contents/MacOS
+prefix = /Users/jasonk/projects/freedroid-1.0.2/FreeDroid.app/Contents/Resources/freedroid
+exec_prefix = /Users/jasonk/projects/freedroid-1.0.2/FreeDroid.app/Contents/MacOS
 
-bindir = ./FreeDroid.app/Contents/MacOS/
+bindir = /Users/jasonk/projects/freedroid-1.0.2/FreeDroid.app/Contents/MacOS/
 sbindir = ${exec_prefix}/sbin
 libexecdir = ${exec_prefix}/libexec
 datadir = ${prefix}/share
@@ -143,7 +143,7 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-CFLAGS = -D __MACOSX__ -arch ppc -arch i386  -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_THREAD_SAFE  -DFD_DATADIR='"$(pkgdatadir)"'
+CFLAGS = -D__MACOSX__ -arch ppc -arch i386  -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_THREAD_SAFE
 DIST_SOURCES = $(freedroid_SOURCES)
 DIST_COMMON = Makefile.am Makefile.in
 SOURCES = $(freedroid_SOURCES)

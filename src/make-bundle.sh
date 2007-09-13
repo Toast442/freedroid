@@ -1,11 +1,11 @@
 #!/bin/sh
 
-cat macfiles/Info.plist | sed -e "s/@VERSION@/${1}/" > FreeDroid.app/Contents/Info.plist
+cat macfiles/Info.plist | sed -e "s/@VERSION@/${1}/" > ../FreeDroid.app/Contents/Info.plist
 
-cp macfiles/PkgInfo FreeDroid.app/Contents
-cp macfiles/FreeDroid.icns FreeDroid.app/Contents/Resources
+cp macfiles/PkgInfo ../FreeDroid.app/Contents
+cp macfiles/FreeDroid.icns ../FreeDroid.app/Contents/Resources
 
-cd FreeDroid.app/Contents/MacOS
+cd ../FreeDroid.app/Contents/MacOS
 
 function dylib_fixup {
 

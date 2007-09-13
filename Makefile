@@ -18,10 +18,10 @@ SHELL = /bin/sh
 srcdir = .
 top_srcdir = .
 
-prefix = ./FreeDroid.app/Contents/Resources/freedroid
-exec_prefix = ./FreeDroid.app/Contents/MacOS
+prefix = /Users/jasonk/projects/freedroid-1.0.2/FreeDroid.app/Contents/Resources/freedroid
+exec_prefix = /Users/jasonk/projects/freedroid-1.0.2/FreeDroid.app/Contents/MacOS
 
-bindir = ./FreeDroid.app/Contents/MacOS/
+bindir = /Users/jasonk/projects/freedroid-1.0.2/FreeDroid.app/Contents/MacOS/
 sbindir = ${exec_prefix}/sbin
 libexecdir = ${exec_prefix}/libexec
 datadir = ${prefix}/share
@@ -87,7 +87,7 @@ SUBDIRS = src
 
 man_MANS = freedroid.6
 
-EXTRA_DIST = $(man_MANS) mac-osx map graphics sound
+EXTRA_DIST = $(man_MANS) map graphics sound
 
 win_txts = COPYING AUTHORS README Releasetext freedroid-man
 win_dir = freedroid-$(VERSION)-win32
@@ -400,7 +400,11 @@ installdirs: installdirs-recursive
 installdirs-am:
 	$(mkinstalldirs) $(DESTDIR)$(man6dir)
 
-install: install-recursive
+install: install-recursive mac-bundle
+
+mac-bundle:
+	( cd src && ./make-bundle.sh )
+
 install-exec: install-exec-recursive
 install-data: install-data-recursive
 uninstall: uninstall-recursive
