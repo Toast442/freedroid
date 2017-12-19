@@ -10,6 +10,8 @@
 	<string>FreeDroid</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.toast442.freedroid</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
