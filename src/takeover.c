@@ -281,7 +281,7 @@ Takeover (int enemynum)
   Copy_Rect (buf, User_Rect);
 
   ClearGraphMem();
-  SDL_Flip(ne_screen);
+  FD_Flip(ne_screen);
 
   if (LeaderColor == YourColor)
     return TRUE;
@@ -369,7 +369,7 @@ PlayGame (void)
 
   Uint32 prev_count_tick, count_tick_len;  /* tick vars for count-down */
   Uint32 prev_move_tick, move_tick_len;    /* tick vars for motion */
-  Uint32 last_movekey_time, wait_move_ticks = 110;    /* number of ticks to wait before "key-repeat" */
+  Uint32 last_movekey_time = 0, wait_move_ticks = 110;    /* number of ticks to wait before "key-repeat" */
 
   int up, down, set; 
   int up_counter, down_counter; 
@@ -601,15 +601,13 @@ GetTakeoverGraphics (void)
   int i,j;
   int curx = 0, cury = 0;
   SDL_Rect tmp;
-  SDL_Surface* TempLoadSurface;
 
   Set_Rect (tmp, User_Rect.x, User_Rect.y, 0, 0);
 
   FreeIfUsed(to_blocks);   /* this happens when we do theme-switching */
 
-  TempLoadSurface = IMG_Load (find_file (TO_BLOCK_FILE, GRAPHICS_DIR, USE_THEME, CRITICAL));
-  to_blocks = SDL_DisplayFormatAlpha( TempLoadSurface ); // the surface is converted
-  SDL_FreeSurface ( TempLoadSurface );
+  to_blocks = IMG_Load (find_file (TO_BLOCK_FILE, GRAPHICS_DIR, USE_THEME, CRITICAL));
+  SDL_SetSurfaceBlendMode(to_blocks, SDL_BLENDMODE_BLEND);
 
   /* Set the fill-blocks */
   for (i=0; i<NUM_FILL_BLOCKS; i++,curx += TO_FillBlock.w + 2)
@@ -670,7 +668,6 @@ ShowPlayground (void)
   int block;
   int xoffs, yoffs;
   SDL_Rect dst;
-  SDL_Rect bak;
 
 
   xoffs = Classic_User_Rect.x;
@@ -783,7 +780,7 @@ ShowPlayground (void)
 	} /* for capsules */
     } /* for player */
 
-  SDL_Flip (ne_screen);
+  FD_Flip (ne_screen);
 
   return;
 

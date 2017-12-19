@@ -128,6 +128,8 @@ EXTERN void SetCombatScaleTo(float);
 EXTERN int InitPictures (void);
 
 EXTERN void Init_Video (void);
+EXTERN void FD_Flip(SDL_Surface * screen);
+EXTERN void FD_Set_Gamma(float r, float g, float b);
 EXTERN void ClearGraphMem ( void );
 EXTERN Uint32 getpixel(SDL_Surface *surface, int x, int y);
 EXTERN void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel);
@@ -203,7 +205,7 @@ EXTERN void Takeover_Game_Lost_Sound (void);
 #else
 #define EXTERN extern
 #endif
-EXTERN void ReleaseKey (SDLKey key);
+EXTERN void ReleaseKey (SDL_Keycode key);
 EXTERN int keyboard_update(void);
 EXTERN int getchar_raw (void);
 EXTERN void ResetMouseWheel (void);
@@ -216,9 +218,9 @@ EXTERN bool MouseLeftPressedR (void);
 EXTERN void Init_Joy(void);
 EXTERN void ReactToSpecialKeys(void);
 
-EXTERN bool KeyIsPressed (SDLKey key);
-EXTERN bool KeyIsPressedR (SDLKey key);
-EXTERN bool ModIsPressed (SDLMod mod);
+EXTERN bool KeyIsPressed (SDL_Keycode key);
+EXTERN bool KeyIsPressedR (SDL_Keycode key);
+EXTERN bool ModIsPressed (SDL_Keymod mod);
 
 EXTERN bool NoDirectionPressed (void);
 
@@ -335,7 +337,7 @@ EXTERN void PlayGame (void);
 EXTERN void EnemyMovements (void);
 
 EXTERN int GetTakeoverGraphics (void);
-EXTERN void ShowPlayground ();
+EXTERN void ShowPlayground (void);
 EXTERN void InventPlayground (void);
 
 EXTERN void ProcessPlayground (void);

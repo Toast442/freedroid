@@ -169,7 +169,7 @@ UpdateHighscores (void)
   h = FontHeight (Para_BFont);
   DisplayText ("Great Score !",  dst.x - h, dst.y - h, &User_Rect);
   DisplayText ("Enter your name: ",  dst.x - 5*h, dst.y + dst.h, &User_Rect);
-  SDL_Flip (ne_screen);
+  FD_Flip (ne_screen);
 
   SDL_SetClipRect (ne_screen, NULL);
   tmp_name = GetString (MAX_NAME_LEN, 2);
@@ -238,7 +238,7 @@ ShowHighscores (void)
       if (Highscores[i]->score >= 0)
 	PrintString (ne_screen, x3, y0 + (i+2)*height, "%ld", Highscores[i]->score);
     }
-  SDL_Flip (ne_screen);
+  FD_Flip (ne_screen);
   
   Wait4Fire();
 
