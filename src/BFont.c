@@ -64,7 +64,7 @@ InitFont (BFont_Info * Font)
 
   Font->h = Font->Surface->h;
 
-  SDL_SetColorKey (Font->Surface, SDL_SRCCOLORKEY,
+  SDL_SetColorKey (Font->Surface, SDL_TRUE,
 		   GetPixel (Font->Surface, 0, Font->Surface->h - 1));
 }
 
@@ -189,7 +189,7 @@ SetFontColor (BFont_Info * Font, Uint8 r, Uint8 g, Uint8 b)
 	  if (SDL_MUSTLOCK (Font->Surface))
 	    SDL_UnlockSurface (Font->Surface);
 
-	  SDL_SetColorKey (surface, SDL_SRCCOLORKEY, color_key);
+	  SDL_SetColorKey (surface, SDL_TRUE, color_key);
 	}
 
       newfont->Surface = surface;
@@ -302,7 +302,7 @@ int
 count (char *text)
 {
   char *p = NULL;
-  int pos = -1;
+  long pos = -1;
   int i = 0;
   /* Calculate the space occupied by the text without spaces */
   while ((p = strchr (&text[pos + 1], ' ')) != NULL)
@@ -330,7 +330,7 @@ JustifiedPutStringFont (SDL_Surface * Surface, BFont_Info * Font, int y,
 
   char *strtmp;
   char *p;
-  int pos = -1;
+  long pos = -1;
   int xpos = 0;
 
 

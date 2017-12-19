@@ -1,26 +1,33 @@
 #!/bin/sh
 
-cat macfiles/Info.plist | sed -e "s/@VERSION@/${1}/" > ../FreeDroid.app/Contents/Info.plist
+SDL=$HOME/projects/root/Library/Frameworks/SDL_2.0
+BUNDLE=../FreeDroid.app
 
+rm -rf ${BUNDLE}
+
+mkdir -p ${BUNDLE}/Contents/MacOS
+mkdir -p ${BUNDLE}/Contents/Resources
+mkdir -p ${BUNDLE}/Contents/Frameworks
+
+cat macfiles/Info.plist | sed -e "s/@VERSION@/${1}/" > ${BUNDLE}/Contents/Info.plist
 cp macfiles/PkgInfo ../FreeDroid.app/Contents
-cp macfiles/FreeDroid.icns ../FreeDroid.app/Contents/Resources
+cp macfiles/FreeDroid.icns ${BUNDLE}/Contents/Resources
+cp -a ../sound ${BUNDLE}/Contents/Resources
+cp -a ../graphics ${BUNDLE}/Contents/Resources
+cp -a ../map ${BUNDLE}/Contents/Resources
+cp -a $SDL/* ${BUNDLE}/Contents/Frameworks
+cp -a freedroid ${BUNDLE}/Contents/MacOS/FreeDroid
 
-cd ../FreeDroid.app/Contents/MacOS
 
-function dylib_fixup {
+MACOS_APP_BIN=${BUNDLE}/Contents/MacOS/FreeDroid
 
-  DYLIBS=`otool -X -L $1 | grep dylib | grep -v /usr/lib | grep -v Frameworks | awk -F \( '{ print $1 }'`
+for old in `otool -L $MACOS_APP_BIN | grep @rpath | cut -f2 | cut -d' ' -f1`; do
+    new=`echo $old | sed -e "s/@rpath/@executable_path\/..\/Frameworks/"`
+    echo "Replacing '$old' with '$new'"
+    install_name_tool -change $old $new $MACOS_APP_BIN
+done
 
+#install_name_tool -add_rpath FreeDroid.app/Contents/Frameworks ${BUNDLE}/Contents/MacOS/FreeDroid 
+#install_name_tool -add_rpath ../Frameworks ${BUNDLE}/Contents/MacOS/FreeDroid 
+#install_name_tool -add_rpath /Users/jasonk/projects/root/Library/Frameworks ${BUNDLE}/Contents/MacOS/FreeDroid 
 
-  for dl in $DYLIBS
-  do
-  	install_name_tool -change $dl @executable_path/`basename $dl` $1
-	if ! test -f `basename $dl`
-	then 
-  		cp $dl .
-		dylib_fixup `basename $dl`
-	fi
-  done
-}
-
-dylib_fixup ./freedroid

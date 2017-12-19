@@ -547,7 +547,6 @@ LevelToStruct (char *data)
   char *map_begin, *wp_begin, *level_end;
   char *this_line, *next_line;
   char *pos;
-  size_t len;
   int i;
   int nr, x, y;
   int k;
@@ -967,7 +966,7 @@ GetLiftConnections (char *filename)
   char *EntryPointer;
   char *EndOfDeckRectangleSection;
   int i;
-  int Label;
+  int Label = 0;
   int DeckIndex;
   int RectIndex;
   int ElevatorIndex;
@@ -1321,10 +1320,10 @@ MoveLevelDoors (void)
 		  AllEnemys[j].levelnum != CurLevel->levelnum)
 		continue;
 
-	      xdist = abs (AllEnemys[j].pos.x - doorx);
+	      xdist = abs ((int)(AllEnemys[j].pos.x - doorx));
 	      if (xdist < Block_Rect.w)
 		{
-		  ydist = abs (AllEnemys[j].pos.y - doory);
+		  ydist = abs ((int)(AllEnemys[j].pos.y - doory));
 		  if (ydist < Block_Rect.h)
 		    {
 		      dist2 = xdist * xdist + ydist * ydist;

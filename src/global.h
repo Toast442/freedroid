@@ -165,6 +165,9 @@ EXTERN themelist_t AllThemes;
 EXTERN SDL_Cursor *crosshair_cursor;
 EXTERN SDL_Cursor  *arrow_cursor;
 EXTERN int Number_Of_Bullet_Types;
+EXTERN SDL_Window  *ne_window;
+EXTERN SDL_Renderer *ne_renderer;
+EXTERN SDL_Texture * ne_texture;
 EXTERN SDL_Surface *ne_screen;   /* the graphics display */
 
 EXTERN SDL_Surface *EnemySurfacePointer[ ENEMYPHASES ];   // A pointer to the surfaces containing the pictures of the

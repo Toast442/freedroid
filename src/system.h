@@ -83,10 +83,13 @@
 #include <dirent.h>
 #endif
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
 #include "SDL.h"
 #include "SDL_image.h"
 
 #ifdef HAVE_LIBSDL_MIXER
 #include "SDL_mixer.h"
 #endif
+#pragma clang diagnostic pop
 
