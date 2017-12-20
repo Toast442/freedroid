@@ -9,7 +9,7 @@ LDFLAGS=-g -F $(FRAMEWORKS) -framework SDL2 -framework SDL2_image -framework SDL
 all: freedroid
 
 bundle: freedroid
-	./make-bundle.sh
+	./macfiles/make-bundle.sh
 
 freedroid: $(OBJS)
 	$(GCC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $@
