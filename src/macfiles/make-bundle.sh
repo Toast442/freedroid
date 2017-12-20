@@ -18,6 +18,8 @@ cp -a ../map ${BUNDLE}/Contents/Resources
 cp -a $SDL/* ${BUNDLE}/Contents/Frameworks
 cp -a freedroid ${BUNDLE}/Contents/MacOS/FreeDroid
 
+rm -vf ${BUNDLE}/Contents/Frameworks/SDL2.framework/Versions/Current/Headers/SDL2
+
 
 MACOS_APP_BIN=${BUNDLE}/Contents/MacOS/FreeDroid
 
@@ -27,7 +29,4 @@ for old in `otool -L $MACOS_APP_BIN | grep @rpath | cut -f2 | cut -d' ' -f1`; do
     install_name_tool -change $old $new $MACOS_APP_BIN
 done
 
-#install_name_tool -add_rpath FreeDroid.app/Contents/Frameworks ${BUNDLE}/Contents/MacOS/FreeDroid 
-#install_name_tool -add_rpath ../Frameworks ${BUNDLE}/Contents/MacOS/FreeDroid 
-#install_name_tool -add_rpath /Users/jasonk/projects/root/Library/Frameworks ${BUNDLE}/Contents/MacOS/FreeDroid 
 

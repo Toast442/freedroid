@@ -40,7 +40,7 @@
 
 int read_variable(char * data, char * var_name, char * fmt, void * var);
 
-char * homedir = NULL;
+static char * homedir = NULL;
 
 long oneframedelay = 0;
 long tenframedelay = 0;
@@ -138,12 +138,15 @@ LoadGameConfig(void)
     struct stat statbuf;
     char version_string[100];
 
+#if __MACOSX__
+    homedir = SDL_GetPrefPath("Toast442.org","FreeDroid");
+#else
     // first we need the user's homedir for loading/saving stuff
     if( (homedir = getenv("HOME")) == NULL ) {
         DebugPrintf(0, "WARNING: Environment does not contain HOME variable...using local dir\n");
         homedir = ".";
     }
-
+#endif
     sprintf(ConfigDir, "%s/.freedroidClassic", homedir);
 
     if(stat(ConfigDir, &statbuf) == -1) {
