@@ -29,4 +29,11 @@ for old in `otool -L $MACOS_APP_BIN | grep @rpath | cut -f2 | cut -d' ' -f1`; do
     install_name_tool -change $old $new $MACOS_APP_BIN
 done
 
+pushd ${BUNDLE}/Contents/Frameworks > /dev/null 2>&1
+signframework *
+popd > /dev/null 2>&1
+sign --options=runtime --entitlements=macfiles/freedroid-Entitlements.plist ${BUNDLE}
 
+VERSION=$(/usr/libexec/PlistBuddy  -c "Print CFBundleGetInfoString" ${BUNDLE}/Contents/Info.plist)
+
+ditto -c -k --keepParent ${BUNDLE} Freedroid-$VERSION.zip
