@@ -2,8 +2,11 @@ OBJS=BFont.o SDL_rotozoom.o bullet.o enemy.o graphics.o highscore.o influ.o init
 HOME=/Users/jasonk
 FRAMEWORKS=$(HOME)/projects/root/Library/Frameworks/SDL_2.0
 INCPATH=-I ../ -F $(FRAMEWORKS) -I $(FRAMEWORKS)/SDL2.framework/Headers -I $(FRAMEWORKS)/SDL2_image.framework/Headers -I $(FRAMEWORKS)/SDL2_mixer.framework/Headers
-GCC=gcc
-CFLAGS=-g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+XCODE=$(shell xcode-select -p)
+SDK=$(XCODE)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+GCC=$(shell xcrun -f cc)
+GPP=$(shell xcrun -f c++)
+CFLAGS=-g -arch x86_64 -arch arm64 -isysroot ${SDK} -mmacosx-version-min=10.9
 LDFLAGS=-g -F $(FRAMEWORKS) -framework SDL2 -framework SDL2_image -framework SDL2_mixer -framework Cocoa
 
 all: freedroid

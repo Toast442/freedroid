@@ -15,7 +15,9 @@ cp macfiles/FreeDroid.icns ${BUNDLE}/Contents/Resources
 cp -a ../sound ${BUNDLE}/Contents/Resources
 cp -a ../graphics ${BUNDLE}/Contents/Resources
 cp -a ../map ${BUNDLE}/Contents/Resources
-cp -a $SDL/* ${BUNDLE}/Contents/Frameworks
+cp -a $SDL/SDL2.framework ${BUNDLE}/Contents/Frameworks
+cp -a $SDL/SDL2_image.framework ${BUNDLE}/Contents/Frameworks
+cp -a $SDL/SDL2_mixer.framework ${BUNDLE}/Contents/Frameworks
 cp -a freedroid ${BUNDLE}/Contents/MacOS/FreeDroid
 
 rm -vf ${BUNDLE}/Contents/Frameworks/SDL2.framework/Versions/Current/Headers/SDL2
