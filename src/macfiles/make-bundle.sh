@@ -18,18 +18,25 @@ cp -a ../map ${BUNDLE}/Contents/Resources
 cp -a $SDL/SDL2.framework ${BUNDLE}/Contents/Frameworks
 cp -a $SDL/SDL2_image.framework ${BUNDLE}/Contents/Frameworks
 cp -a $SDL/SDL2_mixer.framework ${BUNDLE}/Contents/Frameworks
+cp -a $SDL/xmp.framework ${BUNDLE}/Contents/Frameworks
 cp -a freedroid ${BUNDLE}/Contents/MacOS/FreeDroid
 
 rm -vf ${BUNDLE}/Contents/Frameworks/SDL2.framework/Versions/Current/Headers/SDL2
 
 
 MACOS_APP_BIN=${BUNDLE}/Contents/MacOS/FreeDroid
+SDL_MIXER_BIN=${BUNDLE}/Contents/Frameworks/SDL2_mixer.framework/Versions/A/SDL2_mixer
 
-for old in `otool -L $MACOS_APP_BIN | grep @rpath | cut -f2 | cut -d' ' -f1`; do
-    new=`echo $old | sed -e "s/@rpath/@executable_path\/..\/Frameworks/"`
-    echo "Replacing '$old' with '$new'"
-    install_name_tool -change $old $new $MACOS_APP_BIN
-done
+function fix_framework_path() {
+    for old in `otool -L "$1" | grep @rpath | cut -f2 | cut -d' ' -f1`; do
+        new=`echo $old | sed -e "s/@rpath/@executable_path\/..\/Frameworks/"`
+        echo "Replacing '$old' with '$new'"
+        install_name_tool -change $old $new "$1"
+    done
+}
+
+fix_framework_path "$MACOS_APP_BIN"
+fix_framework_path "$SDL_MIXER_BIN"
 
 pushd ${BUNDLE}/Contents/Frameworks > /dev/null 2>&1
 signframework *
